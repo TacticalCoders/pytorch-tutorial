@@ -10,7 +10,7 @@ x_data = torch.tensor(data)  # convert list to tensor
 
 print(x_data)
 
-# Tensors can be initialized randomly or by one, zero
+# Tensors can be initialized with random or one, zero
 shape = (2, 3,)  # shape is a tuple of tensor dimensions.
 rand_tensor = torch.rand(shape)
 ones_tensor = torch.ones(shape)
