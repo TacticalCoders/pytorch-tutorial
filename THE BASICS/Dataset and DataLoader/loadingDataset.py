@@ -6,6 +6,7 @@ DataLoader는 데이터셋을 iterable로 감싸 샘플에 쉽게 반환할 수 
 
 import torch
 from torch.utils.data import Dataset  # remember torch.utils.data
+from torch.utils.data import DataLoader
 from torchvision import datasets  # pytorch provide a pre-loaded datasets
 from torchvision.transforms import ToTensor
 import matplotlib.pyplot as plt
@@ -49,3 +50,18 @@ for i in range(1, cols * rows + 1):
     plt.axis("off")
     plt.imshow(img.squeeze(), cmap="gray")
 plt.show()
+
+
+# While training a model, pass samples in "mini batches"
+# reshuffle the data at every epoch to reduce model overfitting
+train_dataloader = DataLoader(training_data, batch_size=64, shuffle=True)
+test_dataloader = DataLoader(test_data, batch_size=64, shuffle=True)
+
+train_features, train_labels = next(iter(train_dataloader))
+print(f"Feature batch shape: {train_features.size()}")
+print(f"Labels batch shape: {train_labels.size()}")
+img = train_features[0].squeeze()  # first sample from the mini batches(64)
+label = train_labels[0]
+plt.imshow(img, cmap="gray")
+plt.show()
+print(f"Label: {label}")
