@@ -37,8 +37,15 @@ model = NeuralNetwork().to(device)
 print(model)
 
 X = torch.rand(1, 28, 28, device=device)
-logits = model(X)  # don't cal forward method. just pass X.
+logits = model(X)  # don't cal forward method. just pass X to model.
 print(logits)
 pred_probab = nn.Softmax(dim=1)(logits)
-y_pred = pred_probab.argmax(1)
+y_pred = pred_probab.argmax(1)  # 1 is dimension
 print(f"predicted class: {y_pred}")
+
+# check model structure just by print model class
+print(f"Model structure: {model}\n\n")
+
+# layer name and real parameter
+for name, param in model.named_parameters():
+    print(f"Layer: {name} | Size: {param.size()} | Values : {param[:2]} \n")
