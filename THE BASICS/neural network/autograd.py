@@ -27,3 +27,18 @@ loss.backward()
 # we can only obtain the grad for the leaf nodes of computational graph.
 print(w.grad)
 print(b.grad)
+
+# By default, all tensors with requires_grad=True are tracking their computational history.
+# However, there are some cases when we do not need to do that(only want to do forward)
+# we can stop tracking, by with torch.no_grad():
+z = torch.matmul(x, w) + b
+print(z.requires_grad)  # True
+
+with torch.no_grad():
+    z = torch.matmul(x, w) + b
+print(z.requires_grad)  # False
+
+# also, use  detach() method on the tensor.
+z = torch.matmul(x, w) + b
+z_det = z.detach()
+print(z.requires_grad)  # False
